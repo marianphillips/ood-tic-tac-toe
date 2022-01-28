@@ -94,13 +94,39 @@ takeTurn(row, col) {
 
 module.exports = TicTacToe
 
-const game = new TicTacToe()
+const readline = require('readline');
+const { stdin: input, stdout: output } = require('process');
 
-game.takeTurn(1,1)
-console.log(game.board)
-game.takeTurn(0,1)
-console.log(game.board)
-game.takeTurn(2,1)
-console.log(game.board)
-game.takeTurn(0,0)
-console.log(game.board)
+const rl = readline.createInterface({ input, output });
+
+rl.question('New game of TicTacToe? press any key to continue \n', () => {
+    let game = new TicTacToe()
+    console.log(game.board.join('\n')+`\n`)
+
+rl.setPrompt('To take your turn, type in the row and column of where you want to go, sepearted by a comma. Or to exit type "close":')
+rl.prompt();
+
+rl.on('line', (answer) => {
+    if(answer.trim() === "close") {
+        rl.close()
+    }
+    else {
+        let array = answer.trim().split(",")
+        let blank = []
+        for (let num of array) {
+            blank.push(Number(num))
+        }
+        
+       console.log(game.takeTurn(blank[0], blank[1]))
+       console.log(game.board.join('\n')+`\n`)
+
+       rl.setPrompt('To take your turn, type in the row and column of where you want to go, sepearted by a comma. Or to exit type "close":')
+       rl.prompt();
+    }
+
+})
+rl.on('close',()=> {
+    console.log('Thank you for playing tic tac toe. ')
+})
+})
+
