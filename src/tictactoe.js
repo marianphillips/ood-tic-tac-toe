@@ -116,8 +116,7 @@ rl.on('line', (answer) => {
         for (let num of array) {
             blank.push(Number(num))
         }
-        
-       console.log(game.takeTurn(blank[0], blank[1]))
+        console.log(game.takeTurn(blank[0], blank[1]))
        console.log(game.board.join('\n')+`\n`)
 
        rl.setPrompt('To take your turn, type in the row and column of where you want to go, sepearted by a comma. Or to exit type "close":')
